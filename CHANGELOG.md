@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.1.2 - 2025-07-05
+
+### [0.1.2](https://github.com/achyutkneupane/laravel-hls/compare/v0.1.1...v0.1.2) (2025-07-05)
+
+### Documentation
+
+* link in license ([23a12b7](https://github.com/achyutkneupane/laravel-hls/commit/23a12b7f255cca59cc23c735e4db8faa9d86ae27))
+
 ## v0.1.1 - 2025-07-05
 
 ### [0.1.1](https://github.com/achyutkneupane/laravel-hls/compare/v0.1.0...v0.1.1) (2025-07-05)
