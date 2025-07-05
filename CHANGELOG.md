@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.1.1 - 2025-07-05
+
+### [0.1.1](https://github.com/achyutkneupane/laravel-hls/compare/v0.1.0...v0.1.1) (2025-07-05)
+
+### Documentation
+
+* Basic documentation added for basic use case ([#2](https://github.com/achyutkneupane/laravel-hls/issues/2)) ([553fd7f](https://github.com/achyutkneupane/laravel-hls/commit/553fd7f92baf9ffeadb1d6ff9a359d1303659178))
+* Configuration section added ([5a5563f](https://github.com/achyutkneupane/laravel-hls/commit/5a5563fb6cbab72f50b34ca6c47247042eac292f))
+* Features and other sections in documentation ([2482e72](https://github.com/achyutkneupane/laravel-hls/commit/2482e728b4ba9b8b68613d81314fa075fdd1a90a))
+* Installation documentation added ([71814d1](https://github.com/achyutkneupane/laravel-hls/commit/71814d130278fec1eb1870b120d8c23d82f53c02))
+* Usage section added with trait use ([0c9d68a](https://github.com/achyutkneupane/laravel-hls/commit/0c9d68a74ee333ca6ae17bc943073b66e52dbfe7))
+
 ## v0.1.0 - 2025-07-05
 
 ### [0.1.0](https://github.com/achyutkneupane/laravel-hls/compare/v0.0.1...v0.1.0) (2025-07-05)
