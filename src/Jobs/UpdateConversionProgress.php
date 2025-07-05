@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AchyutN\LaravelHLS\Jobs;
 
+use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Queue\Queueable;
 
@@ -26,10 +27,13 @@ final class UpdateConversionProgress
      */
     public function handle(): void
     {
-        Model::withoutTimestamps(function (): void {
-            $this->model->updateQuietly([
-                'conversion_progress' => $this->percentage,
-            ]);
-        });
+        try {
+            Model::withoutTimestamps(function (): void {
+                $this->model->setProgress((int) $this->percentage);
+                $this->model->saveQuietly();
+            });
+        } catch (Exception $e) {
+            abort(500, 'Failed to update conversion progress: '.$e->getMessage());
+        }
     }
 }

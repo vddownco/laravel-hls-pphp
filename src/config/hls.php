@@ -55,7 +55,7 @@ return [
      *
      * Default: 'public'
      */
-    'secrets_disk' => 'public',
+    'secrets_disk' => 'local',
 
     /**
      * The path where the HLS output files will be stored.

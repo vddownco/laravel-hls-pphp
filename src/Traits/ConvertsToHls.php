@@ -48,41 +48,41 @@ trait ConvertsToHls
 
     public function getVideoColumn(): string
     {
-        return property_exists($this, 'videoColumn') ? config('hls.video_column') : 'video_path';
+        return property_exists($this, 'videoColumn') ? $this->videoColumn : config('hls.video_column', 'video_path');
     }
 
     public function getHlsColumn(): string
     {
-        return property_exists($this, 'hlsColumn') ? config('hls.hls_column') : 'hls_path';
+        return property_exists($this, 'hlsColumn') ? $this->hlsColumn : config('hls.hls_column', 'hls_path');
     }
 
     public function getProgressColumn(): string
     {
-        return property_exists($this, 'progressColumn') ? config('hls.progress_column') : 'conversion_progress';
+        return property_exists($this, 'progressColumn') ? $this->progressColumn : config('hls.progress_column', 'conversion_progress');
     }
 
     public function getVideoDisk(): string
     {
-        return property_exists($this, 'videoDisk') ? config('hls.video_disk') : 'public';
+        return property_exists($this, 'videoDisk') ? $this->videoDisk : config('hls.video_disk', 'public');
     }
 
     public function getHlsDisk(): string
     {
-        return property_exists($this, 'hlsDisk') ? config('hls.hls_disk') : 'public';
+        return property_exists($this, 'hlsDisk') ? $this->hlsDisk : config('hls.hls_disk', 'public');
     }
 
     public function getSecretsDisk(): string
     {
-        return property_exists($this, 'secretsDisk') ? config('hls.secrets_disk') : 'public';
+        return property_exists($this, 'secretsDisk') ? $this->secretsDisk : config('hls.secrets_disk', 'public');
     }
 
     public function getHLSOutputPath(): string
     {
-        return property_exists($this, 'hlsOutputPath') ? config('hls.hls_output_path') : 'hls';
+        return property_exists($this, 'hlsOutputPath') ? $this->hlsOutputPath : config('hls.hls_output_path', 'hls');
     }
 
     public function getHLSSecretsOutputPath(): string
     {
-        return property_exists($this, 'hlsSecretsOutputPath') ? config('hls.secrets_output_path') : 'secrets';
+        return property_exists($this, 'hlsSecretsOutputPath') ? $this->hlsSecretsOutputPath : config('hls.secrets_output_path', 'secrets');
     }
 }

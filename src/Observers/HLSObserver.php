@@ -11,7 +11,7 @@ final class HLSObserver
 {
     public function created(Model $model): void
     {
-        $videoUploaded = !empty($model->getVideoPath()) && $model->getVideoPath() !== 'null';
+        $videoUploaded = ! empty($model->getVideoPath()) && $model->getVideoPath() !== 'null';
         if ($videoUploaded) {
             QueueHLSConversion::dispatch($model);
         }
