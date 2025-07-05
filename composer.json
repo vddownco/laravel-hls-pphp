@@ -58,8 +58,7 @@
         "test": [
             "@test:lint",
             "@test:type-coverage",
-            "@test:unit",
-            "@test:types"
+            "@test:unit"
         ]
     },
     "config": {

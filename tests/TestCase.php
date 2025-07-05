@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace LaravelHLS\Tests;
+namespace AchyutN\LaravelHLS\Tests;
 
 use PHPUnit\Framework\TestCase as BaseTestCase;
 
