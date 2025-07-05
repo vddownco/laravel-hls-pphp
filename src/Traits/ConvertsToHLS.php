@@ -6,12 +6,12 @@ namespace AchyutN\LaravelHLS\Traits;
 
 use AchyutN\LaravelHLS\Observers\HLSObserver;
 
-trait ConvertsToHls
+trait ConvertsToHLS
 {
     /**
      * Boot the converts to HLS trait for a model.
      */
-    public static function bootConvertsToHls(): void
+    public static function bootConvertsToHLS(): void
     {
         static::observe(app(HLSObserver::class));
     }
