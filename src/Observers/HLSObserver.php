@@ -9,7 +9,7 @@ class HLSObserver
 {
     public function created(Model $model): void
     {
-        $videoUploaded = $model->original_path !== null;
+        $videoUploaded = $model->video_path !== null;
         if ($videoUploaded) {
             QueueHLSConversion::dispatch($model);
         }
@@ -17,7 +17,7 @@ class HLSObserver
 
     public function updated(Model $model): void
     {
-        $modelUpdated =  $model->getOriginal('original_path') !== $model->original_path;
+        $modelUpdated =  $model->getOriginal('video_path') !== $model->video_path;
         if ($modelUpdated) {
             $model->hls_path = null;
             $model->conversion_progress = 0;
