@@ -26,6 +26,7 @@ jobs:
                     ini-values: error_reporting=E_ALL
                     tools: composer:v2
                     coverage: none
+                    extensions: fileinfo, mbstring, intl
 
             -   name: Install dependencies
                 run: composer update --${{ matrix.dependency-version }} --no-interaction --prefer-dist
