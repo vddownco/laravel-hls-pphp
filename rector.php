@@ -4,12 +4,20 @@ declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
 
-return RectorConfig::configure()
-    ->withPaths([
-        __DIR__.'/src',
-    ])
-    // uncomment to reach your current PHP version
-    // ->withPhpSets()
-    ->withTypeCoverageLevel(0)
-    ->withDeadCodeLevel(0)
-    ->withCodeQualityLevel(0);
+try {
+    return RectorConfig::configure()
+        ->withPaths([
+            __DIR__.'/src',
+        ])
+        ->withPreparedSets(
+            deadCode: true,
+            codeQuality: true,
+            typeDeclarations: true,
+            privatization: true,
+            earlyReturn: true,
+        )
+        ->withPhpSets();
+} catch (Rector\Exception\Configuration\InvalidConfigurationException $e) {
+    echo 'Rector configuration error: '.$e->getMessage().PHP_EOL;
+    exit(1);
+}
