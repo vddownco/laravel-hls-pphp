@@ -2,7 +2,7 @@
 
 namespace AchyutN\LaravelHLS\Actions;
 
-use App\Jobs\UpdateConversionProgress;
+use AchyutN\LaravelHLS\Jobs\UpdateConversionProgress;
 use Exception;
 use FFMpeg\Format\Video\X264;
 use Illuminate\Database\Eloquent\Model;
