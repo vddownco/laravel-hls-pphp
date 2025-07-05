@@ -33,3 +33,22 @@ class Video extends Model
     use ConvertsToHls;
 }
 ```
+
+## Configuration
+
+## Configuration
+
+You can configure the package by editing the `config/hls.php` file. Below are the available options:
+
+| Key                   | Description                                                                                     | Type     | Default         |
+|------------------------|-------------------------------------------------------------------------------------------------|----------|-----------------|
+| `video_column`         | The database column that stores the original video path.                                        | `string` | `video_path`    |
+| `hls_column`           | The database column that stores the path to the HLS output folder.                              | `string` | `hls_path`      |
+| `progress_column`      | The database column that stores the conversion progress percentage.                             | `string` | `conversion_progress` |
+| `video_disk`           | The filesystem disk where original video files are stored. Refer to `config/filesystems.php`.  | `string` | `public`        |
+| `hls_disk`             | The filesystem disk where HLS output files are stored. Refer to `config/filesystems.php`.      | `string` | `public`        |
+| `secrets_disk`         | The filesystem disk where encryption secrets are stored.                                        | `string` | `public`         |
+| `hls_output_path`      | Path relative to `hls_disk` where HLS files are saved.                                          | `string` | `hls`           |
+| `secrets_output_path`  | Path relative to `secrets_disk` where encryption secrets are saved.                             | `string` | `secrets`       |
+
+> 💡 Tip: All disk values must be valid disks defined in your `config/filesystems.php`.
