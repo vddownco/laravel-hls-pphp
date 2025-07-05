@@ -6,13 +6,14 @@ namespace AchyutN\LaravelHLS;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
-final class HLSProvider extends BaseServiceProvider {
+final class HLSProvider extends BaseServiceProvider
+{
     /**
      * Register any application services.
      */
     public function register(): void
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/hls.php', 'hls');
+        $this->mergeConfigFrom(__DIR__.'/../config/hls.php', 'hls');
     }
 
     /**
@@ -21,7 +22,7 @@ final class HLSProvider extends BaseServiceProvider {
     public function boot(): void
     {
         $this->publishes([
-            __DIR__ . '/../config/hls.php' => config_path('hls.php'),
+            __DIR__.'/../config/hls.php' => config_path('hls.php'),
         ], 'hls-config');
     }
 }

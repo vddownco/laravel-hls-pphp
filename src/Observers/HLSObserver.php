@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AchyutN\LaravelHLS\Observers;
 
 use AchyutN\LaravelHLS\Jobs\QueueHLSConversion;
 use Illuminate\Database\Eloquent\Model;
 
-class HLSObserver
+final class HLSObserver
 {
     public function created(Model $model): void
     {
@@ -17,7 +19,7 @@ class HLSObserver
 
     public function updated(Model $model): void
     {
-        $modelUpdated =  $model->getOriginal('video_path') !== $model->video_path;
+        $modelUpdated = $model->getOriginal('video_path') !== $model->video_path;
         if ($modelUpdated) {
             $model->hls_path = null;
             $model->conversion_progress = 0;
