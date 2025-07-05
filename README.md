@@ -15,3 +15,21 @@ composer require achyutn/laravel-hls
 ```bash
 php artisan vendor:publish --provider="AchyutN\LaravelHLS\HLSProvider" --tag="hls-config"
 ```
+
+## Usage
+
+You just need to add the `ConvertsToHls` trait to your model. The package will automatically handle the conversion of your video files to HLS format.
+
+```php
+<?php
+
+namespace App\Models;
+
+use AchyutN\LaravelHLS\Traits\ConvertsToHls;
+use Illuminate\Database\Eloquent\Model;
+
+class Video extends Model
+{
+    use ConvertsToHls;
+}
+```
