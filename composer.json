@@ -1,0 +1,35 @@
+{
+    "name": "achyutn/laravel-hls",
+    "description": "A package to convert video files to HLS with rotating key encryption.",
+    "type": "library",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "keywords": ["laravel", "hls", "video", "streaming", "encryption"],
+    "autoload": {
+        "psr-4": {
+            "AchyutN\\LaravelHLS\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AchyutN\\LaravelHLS\\Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Achyut Neupane",
+            "email": "achyutkneupane@gmail.com",
+            "homepage": "https://achyut.com.np",
+            "role": "Maintainer"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "AchyutN\\LaravelHLS\\HLSProvider"
+            ]
+        }
+    },
+    "require": {}
+}
