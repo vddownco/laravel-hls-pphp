@@ -16,6 +16,36 @@ trait ConvertsToHls
         static::observe(app(HLSObserver::class));
     }
 
+    public function getVideoPath(): ?string
+    {
+        return $this->{$this->getVideoColumn()} ?? null;
+    }
+
+    public function setVideoPath(?string $path = null): void
+    {
+        $this->{$this->getVideoColumn()} = $path;
+    }
+
+    public function getHlsPath(): ?string
+    {
+        return $this->{$this->getHlsColumn()} ?? null;
+    }
+
+    public function setHlsPath(?string $path = null): void
+    {
+        $this->{$this->getHlsColumn()} = $path;
+    }
+
+    public function getProgress(): int
+    {
+        return (int) ($this->{$this->getProgressColumn()} ?? 0);
+    }
+
+    public function setProgress(int $progress = 0): void
+    {
+        $this->{$this->getProgressColumn()} = $progress;
+    }
+
     public function getVideoColumn(): string
     {
         return property_exists($this, 'videoColumn') ? config('hls.video_column') : 'video_path';
@@ -41,9 +71,9 @@ trait ConvertsToHls
         return property_exists($this, 'hlsDisk') ? config('hls.hls_disk') : 'public';
     }
 
-    public function getSecretDisk(): string
+    public function getSecretsDisk(): string
     {
-        return property_exists($this, 'secretDisk') ? config('hls.secret_disk') : 'public';
+        return property_exists($this, 'secretsDisk') ? config('hls.secrets_disk') : 'public';
     }
 
     public function getHLSOutputPath(): string
@@ -51,8 +81,8 @@ trait ConvertsToHls
         return property_exists($this, 'hlsOutputPath') ? config('hls.hls_output_path') : 'hls';
     }
 
-    public function getHLSSecretOutputPath(): string
+    public function getHLSSecretsOutputPath(): string
     {
-        return property_exists($this, 'hlsSecretOutputPath') ? config('hls.secret_output_path') : 'hls/secrets';
+        return property_exists($this, 'hlsSecretsOutputPath') ? config('hls.secrets_output_path') : 'secrets';
     }
 }

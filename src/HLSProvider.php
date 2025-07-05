@@ -13,7 +13,10 @@ final class HLSProvider extends BaseServiceProvider
      */
     public function register(): void
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/hls.php', 'hls');
+        $this->mergeConfigFrom(
+            dirname(__DIR__).'/src/config/hls.php',
+            'hls'
+        );
     }
 
     /**
@@ -22,7 +25,7 @@ final class HLSProvider extends BaseServiceProvider
     public function boot(): void
     {
         $this->publishes([
-            __DIR__.'/../config/hls.php' => config_path('hls.php'),
+            dirname(__DIR__).'/src/config/hls.php' => config_path('hls.php'),
         ], 'hls-config');
     }
 }

@@ -35,14 +35,6 @@ final class ConvertToHLS
             '2160p' => '3840x2160',
         ];
 
-        //        $kiloBitRates = [
-        //            '480p'  => 1000,
-        //            '720p'  => 1500,
-        //            '1080p' => 2500,
-        //            '1440p' => 4000,
-        //            '2160p' => 6000,
-        //        ];
-
         $kiloBitRates = [
             '480p' => 750,
             '720p' => 1000,
@@ -51,8 +43,14 @@ final class ConvertToHLS
             '2160p' => 4000,
         ];
 
-        $fileBitrate = \FFMpeg\FFProbe::create()->format(Storage::disk('public')->path($inputPath))->get('bit_rate') / 1000;
-        $videos = \FFMpeg\FFProbe::create()->streams(Storage::disk('public')->path($inputPath))->videos()->first();
+        $videoDisk = $model->getVideoDisk();
+        $hlsDisk = $model->getHlsDisk();
+        $secretsDisk = $model->getSecretsDisk();
+        $hlsOutputPath = $model->getHLSOutputPath();
+        $secretsOutputPath = $model->getHLSSecretsOutputPath();
+
+        $fileBitrate = \FFMpeg\FFProbe::create()->format(Storage::disk($videoDisk)->path($inputPath))->get('bit_rate') / 1000;
+        $videos = \FFMpeg\FFProbe::create()->streams(Storage::disk($videoDisk)->path($inputPath))->videos()->first();
         $fileResolution = $videos ? $videos->get('width').'x'.$videos->get('height') : null;
 
         $formats = [];
@@ -76,10 +74,10 @@ final class ConvertToHLS
                 ]);
         }
 
-        $export = FFMpeg::fromDisk('public')
+        $export = FFMpeg::fromDisk($videoDisk)
             ->open($inputPath)
             ->exportForHLS()
-            ->toDisk('local');
+            ->toDisk($hlsDisk);
 
         foreach ($formats as $format) {
             $export->addFormat($format);
@@ -99,10 +97,12 @@ final class ConvertToHLS
             UpdateConversionProgress::dispatch($model, $percentage);
         });
 
-        $export->withRotatingEncryptionKey(function ($filename, $contents) use ($outputFolder): void {
-            Storage::disk('secrets')->put("{$outputFolder}/{$filename}", $contents);
-        })
-            ->save("{$outputFolder}/playlist.m3u8");
+        $export
+            ->withRotatingEncryptionKey(function ($filename, $contents) use ($outputFolder, $secretsDisk, $secretsOutputPath): void {
+                Storage::disk($secretsDisk)->put("{$outputFolder}/{$secretsOutputPath}/{$filename}", $contents);
+            })
+            ->save("{$outputFolder}/{$hlsOutputPath}/playlist.m3u8");
+
         $progress->finish();
     }
 

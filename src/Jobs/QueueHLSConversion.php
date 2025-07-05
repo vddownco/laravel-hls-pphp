@@ -41,7 +41,7 @@ final class QueueHLSConversion implements ShouldQueue
      */
     public function handle(): void
     {
-        $original_path = $this->model->original_path;
+        $original_path = $this->model->getVideoPath();
         $folderName = uuid_create();
 
         ConvertToHLS::convertToHLS(
@@ -50,13 +50,12 @@ final class QueueHLSConversion implements ShouldQueue
             $this->model
         );
 
-        $this->model->update([
-            'hls_path' => $folderName,
-        ]);
+        $this->model->setHlsPath($folderName);
+        $this->model->saveQuietly();
 
-        Storage::disk('public')->delete($original_path);
-        $this->model->update([
-            'original_path' => null,
-        ]);
+        Storage::disk($this->model->getVideoDisk())->delete($original_path);
+
+        $this->model->setVideoPath(null);
+        $this->model->saveQuietly();
     }
 }
