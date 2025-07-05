@@ -71,7 +71,7 @@ return [
      * This should be a valid path relative to the disk defined
      * in `secret_disk`.
      *
-     * Default: 'hls/keys'
+     * Default: 'hls/secrets'
      */
-    'secret_output_path' => 'hls/keys',
+    'secret_output_path' => 'hls/secrets',
 ];
