@@ -31,5 +31,39 @@
             ]
         }
     },
-    "require": {}
+    "require": {
+        "php": "^8.2|^8.3|^8.4",
+        "pbmedia/laravel-ffmpeg": "^8.7"
+    },
+    "require-dev": {
+        "laravel/framework": "^10|^11|^12.19",
+        "laravel/pint": "^1.23",
+        "laravel/prompts": "^0.3.5",
+        "pestphp/pest": "^3.8",
+        "phpstan/phpstan": "^2.1",
+        "rector/rector": "^2.1"
+    },
+    "scripts": {
+        "lint": [
+            "rector",
+            "pint"
+        ],
+        "test:type-coverage": "pest",
+        "test:lint": [
+            "pint --test"
+        ],
+        "test:unit": "# pest --parallel --coverage --min=90",
+        "test:types": "phpstan",
+        "test": [
+            "@test:lint",
+            "@test:type-coverage",
+            "@test:unit"
+        ]
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
 }

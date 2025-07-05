@@ -7,8 +7,14 @@ on:
 
 jobs:
     tests:
-        name: Run Tests
-        runs-on: ubuntu-latest
+        runs-on: ${{ matrix.os }}
+        strategy:
+            fail-fast: true
+            matrix:
+                os: [ ubuntu-latest, macos-latest, windows-latest ]
+                php: [ 8.2, 8.3, 8.4 ]
+                dependency-version: [ prefer-lowest, prefer-stable ]
+        name: Tests P${{ matrix.php }} - ${{ matrix.os }} - ${{ matrix.dependency-version }}
         steps:
             -   name: Checkout Latest Codebase
                 uses: actions/checkout@v4
@@ -16,13 +22,14 @@ jobs:
             -   name: Setup PHP
                 uses: shivammathur/setup-php@v2
                 with:
-                    php-version: 8.2
+                    php-version: ${{ matrix.php }}
                     ini-values: error_reporting=E_ALL
                     tools: composer:v2
                     coverage: none
+                    extensions: fileinfo, mbstring, intl
 
             -   name: Install dependencies
-                run: composer install --no-interaction --prefer-dist
+                run: composer update --${{ matrix.dependency-version }} --no-interaction --prefer-dist
 
             -   name: Execute tests
-                run: vendor/bin/phpunit
+                run: php ./vendor/bin/pest
