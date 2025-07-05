@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AchyutN\LaravelHLS\Jobs;
 
+use AchyutN\LaravelHLS\Actions\CheckForDatabaseColumns;
 use AchyutN\LaravelHLS\Actions\ConvertToHLS;
 use Exception;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -41,6 +42,8 @@ final class QueueHLSConversion implements ShouldQueue
      */
     public function handle(): void
     {
+        CheckForDatabaseColumns::handle($this->model);
+
         $original_path = $this->model->getVideoPath();
         $folderName = uuid_create();
 
