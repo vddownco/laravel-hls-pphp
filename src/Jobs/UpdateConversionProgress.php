@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AchyutN\LaravelHLS\Jobs;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Queue\Queueable;
 
-class UpdateConversionProgress
+final class UpdateConversionProgress
 {
     use Queueable;
 
@@ -15,8 +17,7 @@ class UpdateConversionProgress
     public function __construct(
         private readonly Model $model,
         private readonly string $percentage = '0',
-    )
-    {
+    ) {
         //
     }
 
@@ -25,7 +26,7 @@ class UpdateConversionProgress
      */
     public function handle(): void
     {
-        Model::withoutTimestamps(function () {
+        Model::withoutTimestamps(function (): void {
             $this->model->updateQuietly([
                 'conversion_progress' => $this->percentage,
             ]);

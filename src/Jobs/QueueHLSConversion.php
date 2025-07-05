@@ -11,14 +11,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Facades\Storage;
 
-class QueueHLSConversion implements ShouldQueue
+final class QueueHLSConversion implements ShouldQueue
 {
     use Queueable;
 
     /**
      * Indicate if the job should be marked as failed on timeout.
-     *
-     * @var bool
      */
     public bool $failOnTimeout = false;
 
@@ -32,13 +30,13 @@ class QueueHLSConversion implements ShouldQueue
      */
     public function __construct(
         public Model $model
-    )
-    {
+    ) {
         //
     }
 
     /**
      * Execute the job.
+     *
      * @throws Exception
      */
     public function handle(): void
