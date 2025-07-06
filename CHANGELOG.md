@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.6.0 - 2025-07-06
+
+### [0.6.0](https://github.com/achyutkneupane/laravel-hls/compare/v0.5.0...v0.6.0) (2025-07-06)
+
+#### Features
+
+* Queue name can be changed from config ([3d9f475](https://github.com/achyutkneupane/laravel-hls/commit/3d9f475b0e490582ccd38f36479fe24b524d0283))
+
 ## v0.5.0 - 2025-07-06
 
 ### [0.5.0](https://github.com/achyutkneupane/laravel-hls/compare/v0.4.0...v0.5.0) (2025-07-06)
