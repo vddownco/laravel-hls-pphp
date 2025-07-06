@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.6.1 - 2025-07-06
+
+### [0.6.1](https://github.com/achyutkneupane/laravel-hls/compare/v0.6.0...v0.6.1) (2025-07-06)
+
+### Bug Fixes
+
+* Queue name set on observer ([eb3a01b](https://github.com/achyutkneupane/laravel-hls/commit/eb3a01bcb41fea7991e7a845a0bc124bd562043e))
+
 ## v0.6.0 - 2025-07-06
 
 ### [0.6.0](https://github.com/achyutkneupane/laravel-hls/compare/v0.5.0...v0.6.0) (2025-07-06)
