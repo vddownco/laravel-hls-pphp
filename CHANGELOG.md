@@ -1,5 +1,22 @@
 # Changelog
 
+## v0.4.0 - 2025-07-06
+
+### [0.4.0](https://github.com/achyutkneupane/laravel-hls/compare/v0.3.0...v0.4.0) (2025-07-06)
+
+#### Features
+
+* HLSModel interface created ([76f3796](https://github.com/achyutkneupane/laravel-hls/commit/76f3796a1b1d678e610161cbd922e524011028ca))
+
+#### Bug Fixes
+
+* Process of model binding in routes updated ([#4](https://github.com/achyutkneupane/laravel-hls/issues/4)) ([a30a23e](https://github.com/achyutkneupane/laravel-hls/commit/a30a23e1c3442a0c4e8981da2811d8d857f24480))
+* string-wise model binding for routes ([5869f73](https://github.com/achyutkneupane/laravel-hls/commit/5869f731089ca3a6946a9f14aa15033fdeb9fe8b))
+
+#### Documentation
+
+* Necessary documantation changes ([667b65f](https://github.com/achyutkneupane/laravel-hls/commit/667b65f60afe6dad4edf412ae2be8e232889991b))
+
 ## v0.3.0 - 2025-07-06
 
 ### [0.3.0](https://github.com/achyutkneupane/laravel-hls/compare/v0.2.0...v0.3.0) (2025-07-06)
