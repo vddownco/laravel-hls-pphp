@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.3.0 - 2025-07-06
+
+### [0.3.0](https://github.com/achyutkneupane/laravel-hls/compare/v0.2.0...v0.3.0) (2025-07-06)
+
+#### Features
+
+* Auto discovery for routes ([0f86780](https://github.com/achyutkneupane/laravel-hls/commit/0f867805fdb6e86cc9cb4af90e4ffadd87a0209e))
+
 ## v0.2.0 - 2025-07-06
 
 ### [0.2.0](https://github.com/achyutkneupane/laravel-hls/compare/v0.1.2...v0.2.0) (2025-07-06)
