@@ -27,5 +27,8 @@ final class HLSProvider extends BaseServiceProvider
         $this->publishes([
             dirname(__DIR__).'/src/config/hls.php' => config_path('hls.php'),
         ], 'hls-config');
+        $this->loadRoutesFrom(
+            dirname(__DIR__).'/src/routes/web.php'
+        );
     }
 }

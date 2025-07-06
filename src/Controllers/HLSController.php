@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
 use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
 
-class HLSController
+final class HLSController
 {
     public function key(Model $model, string $key): \Illuminate\Http\Response
     {
@@ -20,7 +20,7 @@ class HLSController
 
         return response(Storage::disk($model->getSecretsDisk())->get($path), 200, [
             'Content-Type' => 'application/octet-stream',
-            'Content-Disposition' => 'inline; filename="' . $key . '"',
+            'Content-Disposition' => 'inline; filename="'.$key.'"',
         ]);
     }
 
@@ -41,15 +41,15 @@ class HLSController
 
         return FFMpeg::dynamicHLSPlaylist($model->getHlsDisk())
             ->open($path)
-            ->setKeyUrlResolver(fn($key) => URL::signedRoute(
+            ->setKeyUrlResolver(fn ($key) => URL::signedRoute(
                 'hls.key',
                 ['model' => $model, 'key' => $key]
             ))
-            ->setMediaUrlResolver(fn($filename) => URL::signedRoute(
+            ->setMediaUrlResolver(fn ($filename) => URL::signedRoute(
                 'hls.segment',
                 ['model' => $model, 'filename' => $filename]
             ))
-            ->setPlaylistUrlResolver(fn($filename) => URL::signedRoute(
+            ->setPlaylistUrlResolver(fn ($filename) => URL::signedRoute(
                 'hls.playlist',
                 ['model' => $model, 'playlist' => $filename]
             ));
