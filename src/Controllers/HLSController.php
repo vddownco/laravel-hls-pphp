@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AchyutN\LaravelHLS\Controllers;
 
 use Illuminate\Database\Eloquent\Model;
