@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.5.0 - 2025-07-06
+
+### [0.5.0](https://github.com/achyutkneupane/laravel-hls/compare/v0.4.0...v0.5.0) (2025-07-06)
+
+#### Features
+
+* Middleware added in routes ([37b4183](https://github.com/achyutkneupane/laravel-hls/commit/37b4183e5bee04eb4903d8097bbafea3055bcce4))
+
 ## v0.4.0 - 2025-07-06
 
 ### [0.4.0](https://github.com/achyutkneupane/laravel-hls/compare/v0.3.0...v0.4.0) (2025-07-06)
