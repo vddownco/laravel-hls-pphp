@@ -38,6 +38,18 @@ class Video extends Model
 }
 ```
 
+### Fetch HLS playlist
+
+To fetch the HLS playlist for a video, you can call the endpoint `/hls/{model}/playlist` or `route('hls.playlist', ['model' => $model])` where `$model` is an instance of your model that uses the `ConvertsToHls` trait. This will return the HLS playlist in M3U8 format.
+
+```php
+use App\Models\Video;
+
+// Fetch the HLS playlist for a video
+$video = Video::find(1);
+$playlistUrl = route('hls.playlist', ['model' => $video]);
+```
+
 ## Configuration
 
 ### Global Configuration
@@ -104,7 +116,7 @@ class CustomVideo extends Model
 - [x] Configurable paths for video files, HLS output, and encryption secrets.
 - [x] Supports custom disk configurations for video and HLS storage.
 - [x] Model-level configuration overrides for flexibility.
-- [ ] Routes for accessing HLS playlist.
+- [x] Routes for accessing HLS playlist.
 - [ ] Customizable resolutions and bitrate settings.
 - [ ] Support for multiple video formats.
 - [ ] Separate job for each resolution.
