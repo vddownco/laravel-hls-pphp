@@ -44,18 +44,18 @@ return [
      * This should be a valid disk name as defined in your
      * `config/filesystems.php` file.
      *
-     * Default: 'public'
+     * Default: 'local'
      */
-    'hls_disk' => 'public',
+    'hls_disk' => 'local',
 
     /**
      * The disk where the encryption secrets are stored.
      * This should be a valid disk name as defined in your
      * `config/filesystems.php` file.
      *
-     * Default: 'public'
+     * Default: 'local'
      */
-    'secrets_disk' => 'public',
+    'secrets_disk' => 'local',
 
     /**
      * The path where the HLS output files will be stored.
@@ -74,4 +74,15 @@ return [
      * Default: 'hls/secrets'
      */
     'secrets_output_path' => 'secrets',
+
+    /**
+     * The model aliases to detect the class for conversion.
+     * This should be an array of model class names that
+     * implement the ConvertsToHLS trait.
+     *
+     * Default: []
+     */
+    'model_aliases' => [
+//        'video' => \App\Models\Video::class,
+    ],
 ];

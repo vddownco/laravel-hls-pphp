@@ -6,9 +6,8 @@ Route::group([
     'controller' => AchyutN\LaravelHLS\Controllers\HLSController::class,
     'as' => 'hls.',
     'prefix' => 'hls',
-    'middleware' => ['auth'],
 ], function (): void {
-    Route::get('/key/{model}/{key}', 'key')->name('key');
-    Route::get('/segment/{model}/{filename}', 'segment')->name('segment');
-    Route::get('/{model}/playlist/{playlist?}', 'playlist')->name('playlist');
+    Route::get('/key/{model}/{id}/{key}', 'key')->name('key');
+    Route::get('/segment/{model}/{id}/{filename}', 'segment')->name('segment');
+    Route::get('/{model}/{id}/playlist/{playlist?}', 'playlist')->name('playlist');
 });
