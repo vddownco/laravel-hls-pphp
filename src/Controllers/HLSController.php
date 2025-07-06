@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AchyutN\LaravelHLS\Controllers;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
 use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
@@ -20,6 +21,7 @@ final class HLSController
         try {
             return app(config('hls.model_aliases')[$type]);
         } catch (\Exception $e) {
+            Log::error("Failed to resolve model for type [{$type}]. Add a model_aliases entry in your `hls.php` config file.");
             abort(404, "Unknown model type [{$type}]: " . $e->getMessage());
         }
     }

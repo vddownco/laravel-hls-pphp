@@ -4,6 +4,17 @@ declare(strict_types=1);
 
 return [
     /**
+     * Middlewares the HLS routes should use.
+     * This should be an array of middleware names that will be applied
+     * to the HLS routes.
+     *
+     * Default: []
+     */
+    'middlewares' => [
+        // 'auth', // Uncomment to enable authentication middleware
+    ],
+
+    /**
      * The database column that is used to store the original video path.
      * This should be a string column that contains the path to the original
      * video file in default storage.

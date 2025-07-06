@@ -77,6 +77,7 @@ You can configure the package by editing the `config/hls.php` file. Below are th
 
 | Key                   | Description                                                                                   | Type     | Default               |
 |-----------------------|-----------------------------------------------------------------------------------------------|----------|-----------------------|
+| `middlewares`         | Middleware applied to HLS playlist routes.                                                    | `array`  | `[]`                  |
 | `video_column`        | The database column that stores the original video path.                                      | `string` | `video_path`          |
 | `hls_column`          | The database column that stores the path to the HLS output folder.                            | `string` | `hls_path`            |
 | `progress_column`     | The database column that stores the conversion progress percentage.                           | `string` | `conversion_progress` |
@@ -85,6 +86,7 @@ You can configure the package by editing the `config/hls.php` file. Below are th
 | `secrets_disk`        | The filesystem disk where encryption secrets are stored.                                      | `string` | `local`               |
 | `hls_output_path`     | Path relative to `hls_disk` where HLS files are saved.                                        | `string` | `hls`                 |
 | `secrets_output_path` | Path relative to `secrets_disk` where encryption secrets are saved.                           | `string` | `secrets`             |
+| `model_aliases`       | An array of model aliases for easy access to HLS conversion.                                  | `array`  | `[]`                  |
 
 > 💡 Tip: All disk values must be valid disks defined in your `config/filesystems.php`.
 
@@ -125,20 +127,6 @@ class CustomVideo extends Model
     public string $hlsSecretsOutputPath = 'streamed/secrets';
 }
 ```
-
-## Features
-
-- [x] Convert video files to HLS format with AES-128 encryption.
-- [x] Store HLS segments and playlists in a specified directory.
-- [x] Track conversion progress using a dedicated database column.
-- [x] Easily integrate with Eloquent models using a trait.
-- [x] Configurable paths for video files, HLS output, and encryption secrets.
-- [x] Supports custom disk configurations for video and HLS storage.
-- [x] Model-level configuration overrides for flexibility.
-- [x] Routes for accessing HLS playlist.
-- [ ] Customizable resolutions and bitrate settings.
-- [ ] Support for multiple video formats.
-- [ ] Separate job for each resolution.
 
 ## License
 
