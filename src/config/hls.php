@@ -15,6 +15,15 @@ return [
     ],
 
     /**
+     * The queue name for HLS conversion jobs.
+     * This should be a string that defines the queue
+     * name where the HLS conversion jobs will be dispatched.
+     *
+     * Default: "default"
+     */
+    'queue_name' => 'default',
+
+    /**
      * The database column that is used to store the original video path.
      * This should be a string column that contains the path to the original
      * video file in default storage.
@@ -94,6 +103,6 @@ return [
      * Default: []
      */
     'model_aliases' => [
-//        'video' => \App\Models\Video::class,
+        //        'video' => \App\Models\Video::class,
     ],
 ];

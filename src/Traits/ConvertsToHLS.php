@@ -11,6 +11,7 @@ trait ConvertsToHLS
 {
     /**
      * Boot the converts to HLS trait for a model.
+     *
      * @throws Exception
      */
     public static function bootConvertsToHLS(): void

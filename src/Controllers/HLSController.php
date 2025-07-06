@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AchyutN\LaravelHLS\Controllers;
 
+use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
@@ -12,20 +13,6 @@ use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
 
 final class HLSController
 {
-    /**
-     * @param string $type
-     * @return Model
-     */
-    private function resolveModel(string $type): Model
-    {
-        try {
-            return app(config('hls.model_aliases')[$type]);
-        } catch (\Exception $e) {
-            Log::error("Failed to resolve model for type [{$type}]. Add a model_aliases entry in your `hls.php` config file.");
-            abort(404, "Unknown model type [{$type}]: " . $e->getMessage());
-        }
-    }
-
     public function key(string $model, int $id, string $key): \Illuminate\Http\Response
     {
         abort_unless(request()->hasValidSignature(), 401);
@@ -74,5 +61,15 @@ final class HLSController
                 'hls.playlist',
                 ['model' => $model, 'id' => $id, 'playlist' => $filename]
             ));
+    }
+
+    private function resolveModel(string $type): Model
+    {
+        try {
+            return app(config('hls.model_aliases')[$type]);
+        } catch (Exception $e) {
+            Log::error("Failed to resolve model for type [{$type}]. Add a model_aliases entry in your `hls.php` config file.");
+            abort(404, "Unknown model type [{$type}]: ".$e->getMessage());
+        }
     }
 }
