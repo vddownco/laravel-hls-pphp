@@ -1,5 +1,19 @@
 # Changelog
 
+## v0.2.0 - 2025-07-06
+
+### [0.2.0](https://github.com/achyutkneupane/laravel-hls/compare/v0.1.2...v0.2.0) (2025-07-06)
+
+#### Features
+
+* Controller added to handle the playlist, segments, and secrets ([3bcf3e5](https://github.com/achyutkneupane/laravel-hls/commit/3bcf3e5e36a73a16ed9856f6d169b80c2583f23d))
+* Controller and route endpoints for accessing HLS playlist ([#3](https://github.com/achyutkneupane/laravel-hls/issues/3)) ([6dd2eee](https://github.com/achyutkneupane/laravel-hls/commit/6dd2eeedff28592e987886663a0d2e8d58fc1f16))
+* Routes added to get playlist, segments, and secrets ([6c594d8](https://github.com/achyutkneupane/laravel-hls/commit/6c594d86f8426bdf7380bd7cee9559122b8268e5))
+
+#### Documentation
+
+* Docs added for accessing m3u8 playlist ([8fb00de](https://github.com/achyutkneupane/laravel-hls/commit/8fb00def6d28e0b04e15c4e07504a402da60ad24))
+
 ## v0.1.2 - 2025-07-05
 
 ### [0.1.2](https://github.com/achyutkneupane/laravel-hls/compare/v0.1.1...v0.1.2) (2025-07-05)
