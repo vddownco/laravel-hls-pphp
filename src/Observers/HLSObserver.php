@@ -13,7 +13,7 @@ final class HLSObserver
     {
         $videoUploaded = ! empty($model->getVideoPath()) && $model->getVideoPath() !== 'null';
         if ($videoUploaded) {
-            QueueHLSConversion::dispatch($model);
+            QueueHLSConversion::dispatch($model)->onQueue(config('hls.queue_name', 'default'));
         }
     }
 
@@ -26,7 +26,7 @@ final class HLSObserver
 
             $model->saveQuietly();
 
-            QueueHLSConversion::dispatch($model);
+            QueueHLSConversion::dispatch($model)->onQueue(config('hls.queue_name', 'default'));
         }
     }
 }

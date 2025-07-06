@@ -35,11 +35,6 @@ final class QueueHLSConversion implements ShouldQueue
         //
     }
 
-    public function onQueue(?string $queue): string
-    {
-        return $queue ?: config('hls.queue_name', 'default');
-    }
-
     /**
      * Execute the job.
      *
