@@ -11,47 +11,66 @@ use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
 
 final class HLSController
 {
-    public function key(Model $model, string $key): \Illuminate\Http\Response
+    /**
+     * @param string $type
+     * @return Model
+     */
+    private function resolveModel(string $type): Model
+    {
+        try {
+            return app(config('hls.model_aliases')[$type]);
+        } catch (\Exception $e) {
+            abort(404, "Unknown model type [{$type}]: " . $e->getMessage());
+        }
+    }
+
+    public function key(string $model, int $id, string $key): \Illuminate\Http\Response
     {
         abort_unless(request()->hasValidSignature(), 401);
 
-        $path = "{$model->getHlsPath()}/{$model->getHLSSecretsOutputPath()}/{$key}";
-        abort_unless(Storage::disk($model->getSecretsDisk())->exists($path), 404);
+        $resolvedModel = $this->resolveModel($model)->query()->findOrFail($id);
 
-        return response(Storage::disk($model->getSecretsDisk())->get($path), 200, [
+        $path = "{$resolvedModel->getHlsPath()}/{$resolvedModel->getHLSSecretsOutputPath()}/{$key}";
+        abort_unless(Storage::disk($resolvedModel->getSecretsDisk())->exists($path), 404);
+
+        return response(Storage::disk($resolvedModel->getSecretsDisk())->get($path), 200, [
             'Content-Type' => 'application/octet-stream',
             'Content-Disposition' => 'inline; filename="'.$key.'"',
         ]);
     }
 
-    public function segment(Model $model, string $filename): \Symfony\Component\HttpFoundation\BinaryFileResponse
+    public function segment(string $model, int $id, string $filename): \Symfony\Component\HttpFoundation\BinaryFileResponse
     {
         abort_unless(request()->hasValidSignature(), 401);
 
-        $path = "{$model->getHlsPath()}/{$model->getHLSOutputPath()}/{$filename}";
-        abort_unless(Storage::disk($model->getHlsDisk())->exists($path), 404);
+        $resolvedModel = $this->resolveModel($model)->query()->findOrFail($id);
 
-        return response()->file(Storage::disk($model->getHlsDisk())->path($path));
+        $path = "{$resolvedModel->getHlsPath()}/{$resolvedModel->getHLSOutputPath()}/{$filename}";
+        abort_unless(Storage::disk($resolvedModel->getHlsDisk())->exists($path), 404);
+
+        return response()->file(Storage::disk($resolvedModel->getHlsDisk())->path($path));
     }
 
-    public function playlist(Model $model, string $playlist = 'playlist.m3u8'): \ProtoneMedia\LaravelFFMpeg\Http\DynamicHLSPlaylist
+    public function playlist(string $model, int $id, string $playlist = 'playlist.m3u8'): \ProtoneMedia\LaravelFFMpeg\Http\DynamicHLSPlaylist
     {
-        $path = "{$model->getHlsPath()}/{$model->getHLSOutputPath()}/{$playlist}";
-        abort_unless(Storage::disk($model->getHlsDisk())->exists($path), 404);
+        $resolvedModel = $this->resolveModel($model)->query()->findOrFail($id);
+        $path = "{$resolvedModel->getHlsPath()}/{$resolvedModel->getHLSOutputPath()}/{$playlist}";
+        abort_unless(Storage::disk($resolvedModel->getHlsDisk())->exists($path), 404);
 
-        return FFMpeg::dynamicHLSPlaylist($model->getHlsDisk())
+        return FFMpeg::dynamicHLSPlaylist($resolvedModel->getHlsDisk())
             ->open($path)
+            ->fromDisk($resolvedModel->getHlsDisk())
             ->setKeyUrlResolver(fn ($key) => URL::signedRoute(
                 'hls.key',
-                ['model' => $model, 'key' => $key]
+                ['model' => $model, 'id' => $id, 'key' => $key]
             ))
             ->setMediaUrlResolver(fn ($filename) => URL::signedRoute(
                 'hls.segment',
-                ['model' => $model, 'filename' => $filename]
+                ['model' => $model, 'id' => $id, 'filename' => $filename]
             ))
             ->setPlaylistUrlResolver(fn ($filename) => URL::signedRoute(
                 'hls.playlist',
-                ['model' => $model, 'playlist' => $filename]
+                ['model' => $model, 'id' => $id, 'playlist' => $filename]
             ));
     }
 }

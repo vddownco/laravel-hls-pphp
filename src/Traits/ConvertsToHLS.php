@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace AchyutN\LaravelHLS\Traits;
 
 use AchyutN\LaravelHLS\Observers\HLSObserver;
+use Exception;
 
 trait ConvertsToHLS
 {
     /**
      * Boot the converts to HLS trait for a model.
+     * @throws Exception
      */
     public static function bootConvertsToHLS(): void
     {

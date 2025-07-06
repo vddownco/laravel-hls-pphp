@@ -2,8 +2,10 @@
 
 A Laravel package for generating HLS (HTTP Live Streaming) playlists and segments with AES-128 encryption.
 
-This package makes use of the [laravel-ffmpeg](https://github.com/protonemedia/laravel-ffmpeg) package to handle video processing and
-conversion to HLS format. It provides a simple way to convert video files stored in your Laravel application into HLS streams, which can be used for adaptive bitrate streaming.
+This package makes use of the [laravel-ffmpeg](https://github.com/protonemedia/laravel-ffmpeg) package to handle video
+processing and
+conversion to HLS format. It provides a simple way to convert video files stored in your Laravel application into HLS
+streams, which can be used for adaptive bitrate streaming.
 
 ## Installation
 
@@ -13,10 +15,24 @@ You can install the package via Composer:
 composer require achyutn/laravel-hls
 ```
 
-**Optional:** You can publish the [configuration file](src/config/hls.php) using the following command:
+You must publish the [configuration file](src/config/hls.php) using the following command:
 
 ```bash
 php artisan vendor:publish --provider="AchyutN\LaravelHLS\HLSProvider" --tag="hls-config"
+```
+
+The configuration file is required to set-up the aliases for the models that will use the HLS conversion trait.
+
+```php
+<?php
+
+return [
+    // Other configs in hls.php
+
+    'model_aliases' => [
+        'video' => \App\Models\Video::class,
+    ],
+];
 ```
 
 ## Usage
@@ -38,16 +54,19 @@ class Video extends Model
 }
 ```
 
-### Fetch HLS playlist
+### HLS playlist
 
-To fetch the HLS playlist for a video, you can call the endpoint `/hls/{model}/playlist` or `route('hls.playlist', ['model' => $model])` where `$model` is an instance of your model that uses the `ConvertsToHls` trait. This will return the HLS playlist in M3U8 format.
+To fetch the HLS playlist for a video, you can call the endpoint `/hls/{model}/{id}/playlist` or
+`route('hls.playlist', ['model' => 'video', 'id' => $id])` where `$model` is an instance of your
+model that uses the `ConvertsToHls` trait and `$id` is the ID of the model you want to fetch the
+playlist for. This will return the HLS playlist in `m3u8` format.
 
 ```php
 use App\Models\Video;
 
 // Fetch the HLS playlist for a video
-$video = Video::find(1);
-$playlistUrl = route('hls.playlist', ['model' => $video]);
+$video = Video::findOrFail($id);
+$playlistUrl = route('hls.playlist', ['model' => 'video', 'id' => $video->id]);
 ```
 
 ## Configuration
@@ -62,8 +81,8 @@ You can configure the package by editing the `config/hls.php` file. Below are th
 | `hls_column`          | The database column that stores the path to the HLS output folder.                            | `string` | `hls_path`            |
 | `progress_column`     | The database column that stores the conversion progress percentage.                           | `string` | `conversion_progress` |
 | `video_disk`          | The filesystem disk where original video files are stored. Refer to `config/filesystems.php`. | `string` | `public`              |
-| `hls_disk`            | The filesystem disk where HLS output files are stored. Refer to `config/filesystems.php`.     | `string` | `public`              |
-| `secrets_disk`        | The filesystem disk where encryption secrets are stored.                                      | `string` | `public`              |
+| `hls_disk`            | The filesystem disk where HLS output files are stored. Refer to `config/filesystems.php`.     | `string` | `local`               |
+| `secrets_disk`        | The filesystem disk where encryption secrets are stored.                                      | `string` | `local`               |
 | `hls_output_path`     | Path relative to `hls_disk` where HLS files are saved.                                        | `string` | `hls`                 |
 | `secrets_output_path` | Path relative to `secrets_disk` where encryption secrets are saved.                           | `string` | `secrets`             |
 
