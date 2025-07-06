@@ -59,18 +59,24 @@ final class ConvertToHLS
 
         foreach ($lowerResolutions as $resolution => $res) {
             $bitrate = $kiloBitRates[$resolution] ?? 1000;
+            $resParts = self::extractResolution($res);
+            $w = $resParts['width'];
+            $h = $resParts['height'];
             $formats[] = (new X264)
                 ->setKiloBitrate($bitrate)
                 ->setAdditionalParameters([
-                    '-vf', 'scale='.self::renameResolution($res),
+                    '-vf', "scale='if(gt(iw\\,{$w})\\,trunc({$w}*min(1\\,{$w}/iw)/2)*2\\,iw)':'if(gt(ih\\,{$h})\\,trunc({$h}*min(1\\,{$h}/ih)/2)*2\\,ih)'"
                 ]);
         }
 
         if ($formats === []) {
+            $resParts = self::extractResolution($fileResolution);
+            $w = $resParts['width'];
+            $h = $resParts['height'];
             $formats[] = (new X264)
                 ->setKiloBitrate($fileBitrate)
                 ->setAdditionalParameters([
-                    '-vf', 'scale='.self::renameResolution($fileResolution),
+                    '-vf', "scale='if(gt(iw\\,{$w})\\,trunc({$w}*min(1\\,{$w}/iw)/2)*2\\,iw)':'if(gt(ih\\,{$h})\\,trunc({$h}*min(1\\,{$h}/ih)/2)*2\\,ih)'"
                 ]);
         }
 
