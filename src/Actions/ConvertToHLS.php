@@ -27,21 +27,8 @@ final class ConvertToHLS
      */
     public static function convertToHLS(string $inputPath, string $outputFolder, Model $model): void
     {
-        $resolutions = [
-            '480p' => '854x480',
-            '720p' => '1280x720',
-            '1080p' => '1920x1080',
-            '1440p' => '2560x1440',
-            '2160p' => '3840x2160',
-        ];
-
-        $kiloBitRates = [
-            '480p' => 750,
-            '720p' => 1000,
-            '1080p' => 1500,
-            '1440p' => 2500,
-            '2160p' => 4000,
-        ];
+        $resolutions = config('hls.resolutions');
+        $kiloBitRates = config('hls.bitrates');
 
         $videoDisk = $model->getVideoDisk();
         $hlsDisk = $model->getHlsDisk();
@@ -49,9 +36,10 @@ final class ConvertToHLS
         $hlsOutputPath = $model->getHLSOutputPath();
         $secretsOutputPath = $model->getHLSSecretsOutputPath();
 
-        $fileBitrate = \FFMpeg\FFProbe::create()->format(Storage::disk($videoDisk)->path($inputPath))->get('bit_rate') / 1000;
-        $videos = \FFMpeg\FFProbe::create()->streams(Storage::disk($videoDisk)->path($inputPath))->videos()->first();
-        $fileResolution = $videos ? $videos->get('width').'x'.$videos->get('height') : null;
+        $media = FFMpeg::fromDisk($videoDisk)->open($inputPath);
+        $fileBitrate = $media->getFormat()->get('bit_rate') / 1000;
+        $streamVideo = $media->getVideoStream()->getDimensions();
+        $fileResolution = "{$streamVideo->getWidth()}x{$streamVideo->getHeight()}";
 
         $formats = [];
 
