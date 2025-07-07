@@ -79,6 +79,8 @@ You can configure the package by editing the `config/hls.php` file. Below are th
 |-----------------------|-----------------------------------------------------------------------------------------------|----------|-----------------------|
 | `middlewares`         | Middleware applied to HLS playlist routes.                                                    | `array`  | `[]`                  |
 | `queue_name`          | The name of the queue used for HLS conversion jobs.                                           | `string` | `default`             |
+| `bitrates`            | An array of bitrates for HLS conversion.                                                      | `array`  | *See config file*     |
+| `resolutions`         | An array of resolutions for HLS conversion.                                                   | `array`  | *See config file*     |
 | `video_column`        | The database column that stores the original video path.                                      | `string` | `video_path`          |
 | `hls_column`          | The database column that stores the path to the HLS output folder.                            | `string` | `hls_path`            |
 | `progress_column`     | The database column that stores the conversion progress percentage.                           | `string` | `conversion_progress` |
