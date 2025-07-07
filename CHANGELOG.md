@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.7.0 - 2025-07-07
+
+### [0.7.0](https://github.com/achyutkneupane/laravel-hls/compare/v0.6.1...v0.7.0) (2025-07-07)
+
+#### Features
+
+* Bitrates added in config file ([4ff8d2e](https://github.com/achyutkneupane/laravel-hls/commit/4ff8d2e620ad508766bf65a648ffcb7b861332cc))
+* Resolution and Bitrate from config ([#5](https://github.com/achyutkneupane/laravel-hls/issues/5)) ([214ce01](https://github.com/achyutkneupane/laravel-hls/commit/214ce01fc2b91e13cabb5d9c3e8414d565bee0cc))
+* truncate and scale resolution ([1196177](https://github.com/achyutkneupane/laravel-hls/commit/1196177ed96c856cb624ec09da2528d3ddf67614))
+
 ## v0.6.1 - 2025-07-06
 
 ### [0.6.1](https://github.com/achyutkneupane/laravel-hls/compare/v0.6.0...v0.6.1) (2025-07-06)
