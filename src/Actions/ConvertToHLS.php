@@ -49,9 +49,10 @@ final class ConvertToHLS
         $hlsOutputPath = $model->getHLSOutputPath();
         $secretsOutputPath = $model->getHLSSecretsOutputPath();
 
-        $fileBitrate = \FFMpeg\FFProbe::create()->format(Storage::disk($videoDisk)->path($inputPath))->get('bit_rate') / 1000;
-        $videos = \FFMpeg\FFProbe::create()->streams(Storage::disk($videoDisk)->path($inputPath))->videos()->first();
-        $fileResolution = $videos ? $videos->get('width').'x'.$videos->get('height') : null;
+        $media = FFMpeg::fromDisk($videoDisk)->open($inputPath);
+        $fileBitrate = $media->getFormat()->get('bit_rate') / 1000;
+        $streamVideo = $media->getVideoStream()->getDimensions();
+        $fileResolution = "{$streamVideo->getWidth()}x{$streamVideo->getHeight()}";
 
         $formats = [];
 

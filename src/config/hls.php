@@ -24,6 +24,22 @@ return [
     'queue_name' => 'default',
 
     /**
+     * The bitrates for different resolutions. (In kbps)
+     * This should be an associative array where the keys are
+     * resolution strings in the format '{width}x{height}'
+     * and the values are the corresponding bitrates in kbps.
+     *
+     * Example: ['1920x1080' => 5000, '1280x720' => 2500]
+     */
+    'bitrates' => [
+        '480p' => 1000,
+        '720p' => 2500,
+        '1080p' => 5000,
+        '1440p' => 10000,
+        '2160p' => 20000,
+    ],
+
+    /**
      * The database column that is used to store the original video path.
      * This should be a string column that contains the path to the original
      * video file in default storage.
