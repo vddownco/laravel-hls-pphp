@@ -27,14 +27,7 @@ final class ConvertToHLS
      */
     public static function convertToHLS(string $inputPath, string $outputFolder, Model $model): void
     {
-        $resolutions = [
-            '480p' => '854x480',
-            '720p' => '1280x720',
-            '1080p' => '1920x1080',
-            '1440p' => '2560x1440',
-            '2160p' => '3840x2160',
-        ];
-
+        $resolutions = config('hls.resolutions');
         $kiloBitRates = config('hls.bitrates');
 
         $videoDisk = $model->getVideoDisk();
@@ -54,24 +47,18 @@ final class ConvertToHLS
 
         foreach ($lowerResolutions as $resolution => $res) {
             $bitrate = $kiloBitRates[$resolution] ?? 1000;
-            $resParts = self::extractResolution($res);
-            $w = $resParts['width'];
-            $h = $resParts['height'];
             $formats[] = (new X264)
                 ->setKiloBitrate($bitrate)
                 ->setAdditionalParameters([
-                    '-vf', "scale='if(gt(iw\\,{$w})\\,trunc({$w}*min(1\\,{$w}/iw)/2)*2\\,iw)':'if(gt(ih\\,{$h})\\,trunc({$h}*min(1\\,{$h}/ih)/2)*2\\,ih)'"
+                    '-vf', 'scale='.self::renameResolution($res),
                 ]);
         }
 
         if ($formats === []) {
-            $resParts = self::extractResolution($fileResolution);
-            $w = $resParts['width'];
-            $h = $resParts['height'];
             $formats[] = (new X264)
                 ->setKiloBitrate($fileBitrate)
                 ->setAdditionalParameters([
-                    '-vf', "scale='if(gt(iw\\,{$w})\\,trunc({$w}*min(1\\,{$w}/iw)/2)*2\\,iw)':'if(gt(ih\\,{$h})\\,trunc({$h}*min(1\\,{$h}/ih)/2)*2\\,ih)'"
+                    '-vf', 'scale='.self::renameResolution($fileResolution),
                 ]);
         }
 

@@ -26,10 +26,10 @@ return [
     /**
      * The bitrates for different resolutions. (In kbps)
      * This should be an associative array where the keys are
-     * resolution strings in the format '{width}x{height}'
+     * resolution strings in the format '{resolution}'
      * and the values are the corresponding bitrates in kbps.
      *
-     * Example: ['1920x1080' => 5000, '1280x720' => 2500]
+     * Example: ['480p' => 1000, '720p' => 2500, '1080p' => 5000]
      */
     'bitrates' => [
         '480p' => 1000,
@@ -37,6 +37,23 @@ return [
         '1080p' => 5000,
         '1440p' => 10000,
         '2160p' => 20000,
+    ],
+
+    /**
+     * The resolutions for HLS conversion.
+     * This should be an associative array where the keys are
+     * resolution strings in the format '{resolution}'
+     * and the values are the corresponding resolution strings
+     * in the format '{width}x{height}'.
+     *
+     * Example: ['480p' => '854x480', '720p' => '1280x720', '1080p' => '1920x1080']
+     */
+    'resolutions' => [
+        '480p' => '854x480',
+        '720p' => '1280x720',
+        '1080p' => '1920x1080',
+        '1440p' => '2560x1440',
+        '2160p' => '3840x2160',
     ],
 
     /**
