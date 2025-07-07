@@ -35,13 +35,7 @@ final class ConvertToHLS
             '2160p' => '3840x2160',
         ];
 
-        $kiloBitRates = [
-            '480p' => 750,
-            '720p' => 1000,
-            '1080p' => 1500,
-            '1440p' => 2500,
-            '2160p' => 4000,
-        ];
+        $kiloBitRates = config('hls.bitrates');
 
         $videoDisk = $model->getVideoDisk();
         $hlsDisk = $model->getHlsDisk();
