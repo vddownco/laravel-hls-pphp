@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.7.1 - 2025-07-07
+
+### [0.7.1](https://github.com/achyutkneupane/laravel-hls/compare/v0.7.0...v0.7.1) (2025-07-07)
+
+### Documentation
+
+* Resolution and Bitrate added in docs ([3b9c044](https://github.com/achyutkneupane/laravel-hls/commit/3b9c0446762009733f9ea7cf0fbc6cef0d69c3f0))
+
 ## v0.7.0 - 2025-07-07
 
 ### [0.7.0](https://github.com/achyutkneupane/laravel-hls/compare/v0.6.1...v0.7.0) (2025-07-07)
