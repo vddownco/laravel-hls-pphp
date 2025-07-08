@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.9.0 - 2025-07-08
+
+### [0.9.0](https://github.com/achyutkneupane/laravel-hls/compare/v0.8.0...v0.9.0) (2025-07-08)
+
+#### Features
+
+* Bitrates changed for optimized contents ([f9155bd](https://github.com/achyutkneupane/laravel-hls/commit/f9155bdeef016e561d985884ded1c22f62faa61c))
+
 ## v0.8.0 - 2025-07-08
 
 ### [0.8.0](https://github.com/achyutkneupane/laravel-hls/compare/v0.7.1...v0.8.0) (2025-07-08)
