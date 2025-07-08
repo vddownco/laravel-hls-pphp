@@ -50,24 +50,24 @@ final class ConvertToHLS
             $bitrate = $kiloBitRates[$resolution] ?? 1000;
             $formats[] = (new X264)
                 ->setKiloBitrate($bitrate)
+                ->setAudioKiloBitrate(128)
                 ->setAdditionalParameters([
-                    '-vf', 'scale='.self::renameResolution($res),
+                    '-vf', 'scale=' . self::renameResolution($res),
+                    '-tune', 'zerolatency',
                     '-preset', 'veryfast',
-                    '-profile:v', 'main',
-                    '-bufsize', '3000k',
-                    '-maxrate', '2000k',
+                    '-crf', '22'
                 ]);
         }
 
         if ($formats === []) {
             $formats[] = (new X264)
                 ->setKiloBitrate($fileBitrate)
+                ->setAudioKiloBitrate(128)
                 ->setAdditionalParameters([
-                    '-vf', 'scale='.self::renameResolution($fileResolution),
+                    '-vf', 'scale=' . self::renameResolution($fileResolution),
+                    '-tune', 'zerolatency',
                     '-preset', 'veryfast',
-                    '-profile:v', 'main',
-                    '-bufsize', '3000k',
-                    '-maxrate', '2000k',
+                    '-crf', '22'
                 ]);
         }
 

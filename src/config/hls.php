@@ -36,15 +36,14 @@ return [
      * This should be an associative array where the keys are
      * resolution strings in the format '{resolution}'
      * and the values are the corresponding bitrates in kbps.
-     *
-     * Example: ['480p' => 1000, '720p' => 2500, '1080p' => 5000]
      */
     'bitrates' => [
+        '360p' => 600,
         '480p' => 1000,
         '720p' => 2500,
-        '1080p' => 5000,
-        '1440p' => 10000,
-        '2160p' => 20000,
+        '1080p' => 4500,
+        '1440p' => 7000,
+        '2160p' => 12000,
     ],
 
     /**
@@ -57,6 +56,7 @@ return [
      * Example: ['480p' => '854x480', '720p' => '1280x720', '1080p' => '1920x1080']
      */
     'resolutions' => [
+        '360p' => '640x360',
         '480p' => '854x480',
         '720p' => '1280x720',
         '1080p' => '1920x1080',
