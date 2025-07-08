@@ -1,5 +1,18 @@
 # Changelog
 
+## v0.8.0 - 2025-07-08
+
+### [0.8.0](https://github.com/achyutkneupane/laravel-hls/compare/v0.7.1...v0.8.0) (2025-07-08)
+
+#### Features
+
+* Encryption is done if enable_encryption is set true ([ffabe0e](https://github.com/achyutkneupane/laravel-hls/commit/ffabe0e9799cae37a996928cacc84d1700c2c5c3))
+* Optional encryption from config ([#6](https://github.com/achyutkneupane/laravel-hls/issues/6)) ([c7a6936](https://github.com/achyutkneupane/laravel-hls/commit/c7a693666709492c2627b4615dc5f079f112e914))
+
+#### Documentation
+
+* enable_encryption added in README ([3e39d3e](https://github.com/achyutkneupane/laravel-hls/commit/3e39d3e50617fd8fdf61a478d2ed71f254498c2e))
+
 ## v0.7.1 - 2025-07-07
 
 ### [0.7.1](https://github.com/achyutkneupane/laravel-hls/compare/v0.7.0...v0.7.1) (2025-07-07)
