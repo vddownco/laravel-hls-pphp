@@ -24,6 +24,14 @@ return [
     'queue_name' => 'default',
 
     /**
+     * This determines whether the HLS output files should be encrypted
+     * using AES-128 encryption.
+     *
+     * Default: true
+     */
+    'enable_encryption' => true,
+
+    /**
      * The bitrates for different resolutions. (In kbps)
      * This should be an associative array where the keys are
      * resolution strings in the format '{resolution}'
