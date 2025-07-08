@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AchyutN\LaravelHLS\Actions;
 
+use AchyutN\LaravelHLS\Generators\CustomGenerator;
 use AchyutN\LaravelHLS\Jobs\UpdateConversionProgress;
 use Exception;
 use FFMpeg\Format\Video\X264;
@@ -51,6 +52,10 @@ final class ConvertToHLS
                 ->setKiloBitrate($bitrate)
                 ->setAdditionalParameters([
                     '-vf', 'scale='.self::renameResolution($res),
+                    '-preset', 'veryfast',
+                    '-profile:v', 'main',
+                    '-bufsize', '3000k',
+                    '-maxrate', '2000k',
                 ]);
         }
 
@@ -59,6 +64,10 @@ final class ConvertToHLS
                 ->setKiloBitrate($fileBitrate)
                 ->setAdditionalParameters([
                     '-vf', 'scale='.self::renameResolution($fileResolution),
+                    '-preset', 'veryfast',
+                    '-profile:v', 'main',
+                    '-bufsize', '3000k',
+                    '-maxrate', '2000k',
                 ]);
         }
 
