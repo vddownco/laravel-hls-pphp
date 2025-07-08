@@ -94,11 +94,14 @@ final class ConvertToHLS
             UpdateConversionProgress::dispatch($model, $percentage);
         });
 
-        $export
-            ->withRotatingEncryptionKey(function ($filename, $contents) use ($outputFolder, $secretsDisk, $secretsOutputPath): void {
-                Storage::disk($secretsDisk)->put("{$outputFolder}/{$secretsOutputPath}/{$filename}", $contents);
-            })
-            ->save("{$outputFolder}/{$hlsOutputPath}/playlist.m3u8");
+        if (config('hls.enable_encryption')) {
+            $export
+                ->withRotatingEncryptionKey(function ($filename, $contents) use ($outputFolder, $secretsDisk, $secretsOutputPath): void {
+                    Storage::disk($secretsDisk)->put("{$outputFolder}/{$secretsOutputPath}/{$filename}", $contents);
+                });
+        }
+
+        $export->save("{$outputFolder}/{$hlsOutputPath}/playlist.m3u8");
 
         $progress->finish();
     }
