@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.9.1 - 2025-07-11
+
+### [0.9.1](https://github.com/achyutkneupane/laravel-hls/compare/v0.9.0...v0.9.1) (2025-07-11)
+
 ## v0.9.0 - 2025-07-08
 
 ### [0.9.0](https://github.com/achyutkneupane/laravel-hls/compare/v0.8.0...v0.9.0) (2025-07-08)
