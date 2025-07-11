@@ -1,5 +1,7 @@
 # Laravel HLS
 
+[![Laravel HLS](https://banners.beyondco.de/Laravel%20HLS.png?theme=light&packageManager=composer+require&packageName=achyutn%2Flaravel-hls&pattern=anchorsAway&style=style_1&description=A+package+to+convert+video+files+to+HLS+with+rotating+key+encryption.&md=1&showWatermark=0&fontSize=150px&images=video-camera "Laravel HLS")](https://packagist.org/packages/achyutn/laravel-hls)
+
 A Laravel package for generating HLS (HTTP Live Streaming) playlists and segments with AES-128 encryption.
 
 This package makes use of the [laravel-ffmpeg](https://github.com/protonemedia/laravel-ffmpeg) package to handle video
