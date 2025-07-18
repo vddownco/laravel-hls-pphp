@@ -13,7 +13,7 @@ use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
 
 final class HLSController
 {
-    public function key(string $model, int $id, string $key): \Illuminate\Http\Response
+    public function key(string $model, int|string $id, string $key): \Illuminate\Http\Response
     {
         abort_unless(request()->hasValidSignature(), 401);
 
@@ -28,7 +28,7 @@ final class HLSController
         ]);
     }
 
-    public function segment(string $model, int $id, string $filename): \Symfony\Component\HttpFoundation\BinaryFileResponse
+    public function segment(string $model, int|string $id, string $filename): \Symfony\Component\HttpFoundation\BinaryFileResponse
     {
         abort_unless(request()->hasValidSignature(), 401);
 
@@ -40,7 +40,7 @@ final class HLSController
         return response()->file(Storage::disk($resolvedModel->getHlsDisk())->path($path));
     }
 
-    public function playlist(string $model, int $id, string $playlist = 'playlist.m3u8'): \ProtoneMedia\LaravelFFMpeg\Http\DynamicHLSPlaylist
+    public function playlist(string $model, int|string $id, string $playlist = 'playlist.m3u8'): \ProtoneMedia\LaravelFFMpeg\Http\DynamicHLSPlaylist
     {
         $resolvedModel = $this->resolveModel($model)->query()->findOrFail($id);
         $path = "{$resolvedModel->getHlsPath()}/{$resolvedModel->getHLSOutputPath()}/{$playlist}";
