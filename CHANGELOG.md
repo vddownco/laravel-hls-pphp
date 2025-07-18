@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.9.2 - 2025-07-18
+
+### [0.9.2](https://github.com/achyutkneupane/laravel-hls/compare/v0.9.1...v0.9.2) (2025-07-18)
+
+### Code Refactoring
+
+* Add string for UUID/Ulids ([#7](https://github.com/achyutkneupane/laravel-hls/issues/7)) ([a042cae](https://github.com/achyutkneupane/laravel-hls/commit/a042cae765969789a2e24f1a3e46406cee78c323))
+
 ## v0.9.1 - 2025-07-11
 
 ### [0.9.1](https://github.com/achyutkneupane/laravel-hls/compare/v0.9.0...v0.9.1) (2025-07-11)
