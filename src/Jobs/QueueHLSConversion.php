@@ -56,9 +56,13 @@ final class QueueHLSConversion implements ShouldQueue
         $this->model->setHlsPath($folderName);
         $this->model->saveQuietly();
 
-        Storage::disk($this->model->getVideoDisk())->delete($original_path);
+        if (config('hls.delete_original_file_after_conversion'))
+        {
+            Storage::disk($this->model->getVideoDisk())->delete($original_path);
+            $this->model->setVideoPath(null);
+        }
 
-        $this->model->setVideoPath(null);
+
         $this->model->saveQuietly();
     }
 }

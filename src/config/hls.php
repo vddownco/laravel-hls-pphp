@@ -146,4 +146,12 @@ return [
     'model_aliases' => [
         //        'video' => \App\Models\Video::class,
     ],
+
+    /**
+     * This determines whether the original video file should be deleted
+     * after the HLS conversion is complete.
+     *
+     * Default: false
+     */
+    'delete_original_file_after_conversion' => false,
 ];
