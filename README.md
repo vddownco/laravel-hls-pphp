@@ -77,13 +77,13 @@ $playlistUrl = route('hls.playlist', ['model' => 'video', 'id' => $video->id]);
 
 You can configure the package by editing the `config/hls.php` file. Below are the available options:
 
-| Key                   | Description                                                                                   | Type     | Default               |
-|-----------------------|-----------------------------------------------------------------------------------------------|----------|-----------------------|
-| `middlewares`         | Middleware applied to HLS playlist routes.                                                    | `array`  | `[]`                  |
+| Key                   | Description                                                                                   | Type   | Default               |
+|-----------------------|-----------------------------------------------------------------------------------------------|--------|-----------------------|
+| `middlewares`         | Middleware applied to HLS playlist routes.                                                    | `array` | `[]`                  |
 | `queue_name`          | The name of the queue used for HLS conversion jobs.                                           | `string` | `default`             |
-| `enable_encryption`   | Whether to enable AES-128 encryption for HLS segments.                                        | `bool`   | `true`                |
-| `bitrates`            | An array of bitrates for HLS conversion.                                                      | `array`  | *See config file*     |
-| `resolutions`         | An array of resolutions for HLS conversion.                                                   | `array`  | *See config file*     |
+| `enable_encryption`   | Whether to enable AES-128 encryption for HLS segments.                                        | `bool` | `true`                |
+| `bitrates`            | An array of bitrates for HLS conversion.                                                      | `array` | *See config file*     |
+| `resolutions`         | An array of resolutions for HLS conversion.                                                   | `array` | *See config file*     |
 | `video_column`        | The database column that stores the original video path.                                      | `string` | `video_path`          |
 | `hls_column`          | The database column that stores the path to the HLS output folder.                            | `string` | `hls_path`            |
 | `progress_column`     | The database column that stores the conversion progress percentage.                           | `string` | `conversion_progress` |
@@ -92,7 +92,8 @@ You can configure the package by editing the `config/hls.php` file. Below are th
 | `secrets_disk`        | The filesystem disk where encryption secrets are stored.                                      | `string` | `local`               |
 | `hls_output_path`     | Path relative to `hls_disk` where HLS files are saved.                                        | `string` | `hls`                 |
 | `secrets_output_path` | Path relative to `secrets_disk` where encryption secrets are saved.                           | `string` | `secrets`             |
-| `model_aliases`       | An array of model aliases for easy access to HLS conversion.                                  | `array`  | `[]`                  |
+| `model_aliases`       | An array of model aliases for easy access to HLS conversion.                                  | `array` | `[]`                  |
+| `delete_original_file_after_conversion`       | A bool to turn on/off deleting the original video after conversion.                           | `bool` | `false`               |
 
 > 💡 Tip: All disk values must be valid disks defined in your `config/filesystems.php`.
 
