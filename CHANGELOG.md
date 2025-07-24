@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.9.3 - 2025-07-24
+
+### 🏗️ Build System
+
+- ci: New package used for changelog (#9) by @achyutkneupane
+
 ## v0.9.2 - 2025-07-18
 
 ### [0.9.2](https://github.com/achyutkneupane/laravel-hls/compare/v0.9.1...v0.9.2) (2025-07-18)
