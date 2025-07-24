@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.10.0 - 2025-07-24
+
+### 🎉 New Features
+
+- feat: Added option to keep/delete the original file (#8) by @webdevhayes
+
 ## v0.9.3 - 2025-07-24
 
 ### 🏗️ Build System
