@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.10.1 - 2025-07-25
+
+### 📚 Documentation Changes
+
+- docs: Badges added in README (#10) by @achyutkneupane
+
 ## v0.10.0 - 2025-07-24
 
 ### 🎉 New Features
