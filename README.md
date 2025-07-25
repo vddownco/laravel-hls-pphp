@@ -2,11 +2,16 @@
 
 [![Laravel HLS](https://banners.beyondco.de/Laravel%20HLS.png?theme=light&packageManager=composer+require&packageName=achyutn%2Flaravel-hls&pattern=anchorsAway&style=style_1&description=A+package+to+convert+video+files+to+HLS+with+rotating+key+encryption.&md=1&showWatermark=0&fontSize=150px&images=video-camera "Laravel HLS")](https://packagist.org/packages/achyutn/laravel-hls)
 
-A Laravel package for generating HLS (HTTP Live Streaming) playlists and segments with AES-128 encryption.
+![Packagist Version](https://img.shields.io/packagist/v/achyutn/laravel-hls?label=Latest%20Version)
+![Packagist Downloads](https://img.shields.io/packagist/dt/achyutn/laravel-hls?label=Packagist%20Downloads)
+![Packagist Stars](https://img.shields.io/packagist/stars/achyutn/laravel-hls?label=Stars)
+[![Run Test for Pull Request](https://github.com/achyutkneupane/laravel-hls/actions/workflows/master.yml/badge.svg)](https://github.com/achyutkneupane/laravel-hls/actions/workflows/master.yml)
+[![Bump version](https://github.com/achyutkneupane/laravel-hls/actions/workflows/tagrelease.yml/badge.svg)](https://github.com/achyutkneupane/laravel-hls/actions/workflows/tagrelease.yml)
+
+`laravel-hls` is a Laravel package for converting video files into adaptive HLS (HTTP Live Streaming) streams using `ffmpeg`, with built-in AES-128 encryption, queue support, and model-based configuration.
 
 This package makes use of the [laravel-ffmpeg](https://github.com/protonemedia/laravel-ffmpeg) package to handle video
-processing and
-conversion to HLS format. It provides a simple way to convert video files stored in your Laravel application into HLS
+processing and conversion to HLS format. It provides a simple way to convert video files stored in your Laravel application into HLS
 streams, which can be used for adaptive bitrate streaming.
 
 ## Installation
