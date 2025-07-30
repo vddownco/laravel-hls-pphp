@@ -33,7 +33,7 @@ final class HLSService
         ]);
     }
 
-    public function getSegment(string $model, int|string $id, string $filename): BinaryFileResponse
+    public function getSegment(string $model, int|string $id, string $filename): RedirectResponse|StreamedResponse
     {
         $resolvedModel = $this->resolveModel($model)->query()->findOrFail($id);
 
