@@ -73,44 +73,51 @@ final class ConvertToHLS
                 ]);
         }
 
-        $export = FFMpeg::fromDisk($videoDisk)
-            ->open($inputPath)
-            ->exportForHLS()
-            ->toDisk($hlsDisk);
+        try {
+            $export = FFMpeg::fromDisk($videoDisk)
+                ->open($inputPath)
+                ->exportForHLS()
+                ->toDisk($hlsDisk);
 
-        foreach ($formats as $format) {
-            $export->addFormat($format);
-        }
+            foreach ($formats as $format) {
+                $export->addFormat($format);
+            }
 
-        info('Started conversion for resolutions: '.implode(', ', array_keys($lowerResolutions)));
+            info('Started conversion for resolutions: '.implode(', ', array_keys($lowerResolutions)));
 
-        $progress = progress(
-            label: 'Converting video to HLS format...',
-            steps: 100,
-            hint: 'Estimated time remaining: Calculating...',
-        );
-        $progress->start();
-
-        $export->onProgress(function ($percentage) use ($model, $progress, $startTime): void {
-            $estimatedTime = self::estimateTime(
-                startTime: $startTime,
-                progress: $percentage
+            $progress = progress(
+                label: 'Converting video to HLS format...',
+                steps: 100,
+                hint: 'Estimated time remaining: Calculating...',
             );
-            $progress->hint($estimatedTime);
-            $progress->advance();
-            UpdateConversionProgress::dispatch($model, $percentage);
-        });
+            $progress->start();
 
-        if (config('hls.enable_encryption')) {
-            $export
-                ->withRotatingEncryptionKey(function ($filename, $contents) use ($outputFolder, $secretsDisk, $secretsOutputPath): void {
-                    Storage::disk($secretsDisk)->put("{$outputFolder}/{$secretsOutputPath}/{$filename}", $contents);
-                });
+            $export->onProgress(function ($percentage) use ($model, $progress, $startTime): void {
+                $estimatedTime = self::estimateTime(
+                    startTime: $startTime,
+                    progress: $percentage
+                );
+                $progress->hint($estimatedTime);
+                $progress->advance();
+                UpdateConversionProgress::dispatch($model, $percentage);
+            });
+
+            if (config('hls.enable_encryption')) {
+                $export
+                    ->withRotatingEncryptionKey(function ($filename, $contents) use ($outputFolder, $secretsDisk, $secretsOutputPath): void {
+                        Storage::disk($secretsDisk)->put("{$outputFolder}/{$secretsOutputPath}/{$filename}", $contents);
+                    });
+            }
+
+            $export->save("{$outputFolder}/{$hlsOutputPath}/playlist.m3u8");
+
+            FFMpeg::cleanupTemporaryFiles();
+
+            $progress->finish();
+        } catch (Exception $e) {
+            FFMpeg::cleanupTemporaryFiles();
+            throw new Exception("Failed to prepare formats for HLS conversion: {$e->getMessage()}");
         }
-
-        $export->save("{$outputFolder}/{$hlsOutputPath}/playlist.m3u8");
-
-        $progress->finish();
     }
 
     /**

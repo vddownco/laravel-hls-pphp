@@ -137,6 +137,13 @@ return [
     'secrets_output_path' => 'secrets',
 
     /**
+     * The path where the conversion temp files are stored.
+     *
+     * Default: 'tmp'
+     */
+    'temp_storage_path' => 'tmp',
+
+    /**
      * The model aliases to detect the class for conversion.
      * This should be an array of model class names that
      * implement the ConvertsToHLS trait.
@@ -154,4 +161,6 @@ return [
      * Default: false
      */
     'delete_original_file_after_conversion' => false,
+
+
 ];
