@@ -111,6 +111,8 @@ final class ConvertToHLS
 
             $export->save("{$outputFolder}/{$hlsOutputPath}/playlist.m3u8");
 
+            FFMpeg::cleanupTemporaryFiles();
+
             $progress->finish();
         } catch (Exception $e) {
             FFMpeg::cleanupTemporaryFiles();
