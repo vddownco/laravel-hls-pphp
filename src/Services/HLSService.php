@@ -1,23 +1,26 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AchyutN\LaravelHLS\Services;
 
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Http\Response;
-use Illuminate\Database\Eloquent\Model;
 use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Throwable;
 
-class HLSService
+final class HLSService
 {
     public function getKey(string $model, int|string $id, string $key): Response
     {
         $resolvedModel = $this->resolveModel($model)->query()->findOrFail($id);
 
         $path = "{$resolvedModel->getHlsPath()}/{$resolvedModel->getHLSSecretsOutputPath()}/{$key}";
-        if (!Storage::disk($resolvedModel->getSecretsDisk())->exists($path)) {
+        if (! Storage::disk($resolvedModel->getSecretsDisk())->exists($path)) {
             abort(404);
         }
 
@@ -32,7 +35,7 @@ class HLSService
         $resolvedModel = $this->resolveModel($model)->query()->findOrFail($id);
 
         $path = "{$resolvedModel->getHlsPath()}/{$resolvedModel->getHLSOutputPath()}/{$filename}";
-        if (!Storage::disk($resolvedModel->getHlsDisk())->exists($path)) {
+        if (! Storage::disk($resolvedModel->getHlsDisk())->exists($path)) {
             abort(404);
         }
 
@@ -44,7 +47,7 @@ class HLSService
         $resolvedModel = $this->resolveModel($model)->query()->findOrFail($id);
 
         $path = "{$resolvedModel->getHlsPath()}/{$resolvedModel->getHLSOutputPath()}/{$playlist}";
-        if (!Storage::disk($resolvedModel->getHlsDisk())->exists($path)) {
+        if (! Storage::disk($resolvedModel->getHlsDisk())->exists($path)) {
             abort(404);
         }
 
@@ -69,8 +72,8 @@ class HLSService
     {
         try {
             return app(config('hls.model_aliases')[$type]);
-        } catch (\Throwable $e) {
-            Log::error("Failed to resolve model for type [{$type}]: " . $e->getMessage());
+        } catch (Throwable $e) {
+            Log::error("Failed to resolve model for type [{$type}]: ".$e->getMessage());
             abort(404, "Unknown model type [{$type}]");
         }
     }
