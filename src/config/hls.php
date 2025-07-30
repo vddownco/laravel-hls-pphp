@@ -148,6 +148,15 @@ return [
     ],
 
     /**
+     * This determines whether the HLS routes should be registered.
+     * If set to true, the package will register the necessary routes
+     * for HLS conversion and playback.
+     *
+     * Default: true
+     */
+    'register_routes' => true,
+
+    /**
      * This determines whether the original video file should be deleted
      * after the HLS conversion is complete.
      *
