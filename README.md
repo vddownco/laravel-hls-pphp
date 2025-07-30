@@ -8,10 +8,12 @@
 [![Run Test for Pull Request](https://github.com/achyutkneupane/laravel-hls/actions/workflows/master.yml/badge.svg)](https://github.com/achyutkneupane/laravel-hls/actions/workflows/master.yml)
 [![Bump version](https://github.com/achyutkneupane/laravel-hls/actions/workflows/tagrelease.yml/badge.svg)](https://github.com/achyutkneupane/laravel-hls/actions/workflows/tagrelease.yml)
 
-`laravel-hls` is a Laravel package for converting video files into adaptive HLS (HTTP Live Streaming) streams using `ffmpeg`, with built-in AES-128 encryption, queue support, and model-based configuration.
+`laravel-hls` is a Laravel package for converting video files into adaptive HLS (HTTP Live Streaming) streams using
+`ffmpeg`, with built-in AES-128 encryption, queue support, and model-based configuration.
 
 This package makes use of the [laravel-ffmpeg](https://github.com/protonemedia/laravel-ffmpeg) package to handle video
-processing and conversion to HLS format. It provides a simple way to convert video files stored in your Laravel application into HLS
+processing and conversion to HLS format. It provides a simple way to convert video files stored in your Laravel
+application into HLS
 streams, which can be used for adaptive bitrate streaming.
 
 ## Installation
@@ -76,6 +78,26 @@ $video = Video::findOrFail($id);
 $playlistUrl = route('hls.playlist', ['model' => 'video', 'id' => $video->id]);
 ```
 
+### Registering Routes
+
+By default, the package registers the HLS playlist routes automatically. If you want to disable this behavior, you can
+set the `register_routes` option to `false` in your `config/hls.php` file. And to create your own routes, you can use the
+[HLSService](src/Services/HLSService.php) class to generate the HLS playlist URL.
+
+```php
+use AchyutN\LaravelHLS\HLSService;
+
+class CustomHLSController
+{
+    public function __construct(private HLSService $hlsService) {}
+
+    public function stream(Video $video)
+    {
+        return $this->hlsService->getPlaylist('video', $video->id);
+    }
+}
+```
+
 ## Configuration
 
 ### Global Configuration
@@ -98,6 +120,7 @@ You can configure the package by editing the `config/hls.php` file. Below are th
 | `hls_output_path`                       | Path relative to `hls_disk` where HLS files are saved.                                        | `string` | `hls`                 |
 | `secrets_output_path`                   | Path relative to `secrets_disk` where encryption secrets are saved.                           | `string` | `secrets`             |
 | `model_aliases`                         | An array of model aliases for easy access to HLS conversion.                                  | `array`  | `[]`                  |
+| `register_routes`                       | Whether to register the HLS playlist routes automatically.                                    | `bool`   | `true`                |
 | `delete_original_file_after_conversion` | A bool to turn on/off deleting the original video after conversion.                           | `bool`   | `false`               |
 
 > 💡 Tip: All disk values must be valid disks defined in your `config/filesystems.php`.
