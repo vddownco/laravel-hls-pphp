@@ -9,6 +9,7 @@ use Exception;
 use FFMpeg\Format\Video\X264;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
+use Laravel\Prompts\Progress;
 use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
 
 use function Laravel\Prompts\info;
@@ -27,6 +28,8 @@ final class ConvertToHLS
      */
     public static function convertToHLS(string $inputPath, string $outputFolder, Model $model): void
     {
+        $startTime = microtime(true);
+
         $resolutions = config('hls.resolutions');
         $kiloBitRates = config('hls.bitrates');
 
@@ -85,11 +88,16 @@ final class ConvertToHLS
             $progress = progress(
                 label: 'Converting video to HLS format...',
                 steps: 100,
-                hint: 'This may take a while, depending on the video length and resolution.'
+                hint: 'Estimated time remaining: Calculating...',
             );
             $progress->start();
 
-            $export->onProgress(function ($percentage) use ($model, $progress): void {
+            $export->onProgress(function ($percentage) use ($model, $progress, $startTime): void {
+                $estimatedTime = self::estimateTime(
+                    startTime: $startTime,
+                    progress: $percentage
+                );
+                $progress->hint($estimatedTime);
                 $progress->advance();
                 UpdateConversionProgress::dispatch($model, $percentage);
             });
@@ -108,9 +116,18 @@ final class ConvertToHLS
             FFMpeg::cleanupTemporaryFiles();
             throw new Exception("Failed to prepare formats for HLS conversion: {$e->getMessage()}");
         }
+    }
 
+    /**
+     * Calculate the estimated time remaining.
+     */
+    private static function estimateTime(float $startTime, float $progress): string
+    {
+        $elapsed = microtime(true) - $startTime;
+        $remainingSteps = 100 - $progress;
+        $etaSeconds = ($progress > 0) ? ($elapsed / $progress) * $remainingSteps : 0;
 
-
+        return 'Estimated time remaining: '.gmdate('H:i:s', (int) $etaSeconds);
     }
 
     /**
