@@ -39,6 +39,11 @@ trait ConvertsToHLS
         $this->{$this->getHlsColumn()} = $path;
     }
 
+    public function setTempStoragePath(?string $path = null): void
+    {
+        $this->{$this->getTempStorageOutputPath()} = $path;
+    }
+
     public function getProgress(): int
     {
         return (int) ($this->{$this->getProgressColumn()} ?? 0);
@@ -87,5 +92,10 @@ trait ConvertsToHLS
     public function getHLSSecretsOutputPath(): string
     {
         return property_exists($this, 'hlsSecretsOutputPath') ? $this->hlsSecretsOutputPath : config('hls.secrets_output_path', 'secrets');
+    }
+
+    public function getTempStorageOutputPath(): string
+    {
+        return property_exists($this, 'tempStorageOutputPath') ? $this->tempStorageOutputPath : config('hls.temp_storage_path', 'tmp');
     }
 }

@@ -70,39 +70,47 @@ final class ConvertToHLS
                 ]);
         }
 
-        $export = FFMpeg::fromDisk($videoDisk)
-            ->open($inputPath)
-            ->exportForHLS()
-            ->toDisk($hlsDisk);
+        try {
+            $export = FFMpeg::fromDisk($videoDisk)
+                ->open($inputPath)
+                ->exportForHLS()
+                ->toDisk($hlsDisk);
 
-        foreach ($formats as $format) {
-            $export->addFormat($format);
+            foreach ($formats as $format) {
+                $export->addFormat($format);
+            }
+
+            info('Started conversion for resolutions: '.implode(', ', array_keys($lowerResolutions)));
+
+            $progress = progress(
+                label: 'Converting video to HLS format...',
+                steps: 100,
+                hint: 'This may take a while, depending on the video length and resolution.'
+            );
+            $progress->start();
+
+            $export->onProgress(function ($percentage) use ($model, $progress): void {
+                $progress->advance();
+                UpdateConversionProgress::dispatch($model, $percentage);
+            });
+
+            if (config('hls.enable_encryption')) {
+                $export
+                    ->withRotatingEncryptionKey(function ($filename, $contents) use ($outputFolder, $secretsDisk, $secretsOutputPath): void {
+                        Storage::disk($secretsDisk)->put("{$outputFolder}/{$secretsOutputPath}/{$filename}", $contents);
+                    });
+            }
+
+            $export->save("{$outputFolder}/{$hlsOutputPath}/playlist.m3u8");
+
+            $progress->finish();
+        } catch (Exception $e) {
+            FFMpeg::cleanupTemporaryFiles();
+            throw new Exception("Failed to prepare formats for HLS conversion: {$e->getMessage()}");
         }
 
-        info('Started conversion for resolutions: '.implode(', ', array_keys($lowerResolutions)));
 
-        $progress = progress(
-            label: 'Converting video to HLS format...',
-            steps: 100,
-            hint: 'This may take a while, depending on the video length and resolution.'
-        );
-        $progress->start();
 
-        $export->onProgress(function ($percentage) use ($model, $progress): void {
-            $progress->advance();
-            UpdateConversionProgress::dispatch($model, $percentage);
-        });
-
-        if (config('hls.enable_encryption')) {
-            $export
-                ->withRotatingEncryptionKey(function ($filename, $contents) use ($outputFolder, $secretsDisk, $secretsOutputPath): void {
-                    Storage::disk($secretsDisk)->put("{$outputFolder}/{$secretsOutputPath}/{$filename}", $contents);
-                });
-        }
-
-        $export->save("{$outputFolder}/{$hlsOutputPath}/playlist.m3u8");
-
-        $progress->finish();
     }
 
     /**
