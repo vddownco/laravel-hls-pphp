@@ -10,7 +10,6 @@ use FFMpeg\Format\Video\X264;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Laravel\Prompts\Progress;
-use Laravel\Prompts\Prompt;
 use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
 
 use function Laravel\Prompts\info;
@@ -114,20 +113,16 @@ final class ConvertToHLS
         $progress->finish();
     }
 
-
     /**
      * Calculate the estimated time remaining.
-     *
-     * @param float $startTime
-     * @param float $progress
-     * @return string
      */
     private static function estimateTime(float $startTime, float $progress): string
     {
         $elapsed = microtime(true) - $startTime;
         $remainingSteps = 100 - $progress;
         $etaSeconds = ($progress > 0) ? ($elapsed / $progress) * $remainingSteps : 0;
-        return "Estimated time remaining: " . gmdate('H:i:s', (int) $etaSeconds);
+
+        return 'Estimated time remaining: '.gmdate('H:i:s', (int) $etaSeconds);
     }
 
     /**
