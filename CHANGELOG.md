@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.12.1 - 2025-07-30
+
+### 🐛 Bug Fixes
+
+- fix: Fix cloud pathing (#14) by @webdevhayes
+
 ## v0.12.0 - 2025-07-30
 
 ### 🎉 New Features
