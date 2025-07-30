@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.11.0 - 2025-07-30
+
+### 🎉 New Features
+
+- feat: Estimated time is shown in progress bar hint (#11) by @achyutkneupane
+
 ## v0.10.1 - 2025-07-25
 
 ### 📚 Documentation Changes
