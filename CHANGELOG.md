@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.11.1 - 2025-07-30
+
+### 🐛 Bug Fixes
+
+- fix: Fixed clean up of temp files not being called (#12) by @webdevhayes
+
 ## v0.11.0 - 2025-07-30
 
 ### 🎉 New Features
