@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.12.0 - 2025-07-30
+
+### 🎉 New Features
+
+- feat: Service based route logic for disabling/enabling pre-built endpoints (#13) by @achyutkneupane
+
 ## v0.11.1 - 2025-07-30
 
 ### 🐛 Bug Fixes
