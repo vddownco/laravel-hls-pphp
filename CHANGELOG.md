@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.13.0 - 2025-07-31
+
+### 🎉 New Features
+
+- feat: Added ability to specify paths for laravel ffmpeg (#15) by @webdevhayes
+
 ## v0.12.1 - 2025-07-30
 
 ### 🐛 Bug Fixes
