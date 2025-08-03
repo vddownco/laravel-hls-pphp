@@ -116,7 +116,7 @@ final class ConvertToHLS
             $progress->finish();
         } catch (Exception $e) {
             FFMpeg::cleanupTemporaryFiles();
-            throw new Exception("Failed to prepare formats for HLS conversion: {$e->getMessage()}");
+            throw new Exception("Failed to prepare formats for HLS conversion: {$e->getMessage()}", $e->getCode(), $e);
         }
     }
 
