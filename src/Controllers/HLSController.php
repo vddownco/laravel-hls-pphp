@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace AchyutN\LaravelHLS\Controllers;
 
 use AchyutN\LaravelHLS\Services\HLSService;
+use Illuminate\Http\RedirectResponse;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 final readonly class HLSController
 {
@@ -17,7 +19,7 @@ final readonly class HLSController
         return $this->service->getKey($model, $id, $key);
     }
 
-    public function segment(string $model, int|string $id, string $filename): \Symfony\Component\HttpFoundation\BinaryFileResponse
+    public function segment(string $model, int|string $id, string $filename): RedirectResponse|StreamedResponse
     {
         abort_unless(request()->hasValidSignature(), 401);
 
