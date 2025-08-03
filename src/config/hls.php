@@ -178,5 +178,4 @@ return [
      */
     'delete_original_file_after_conversion' => false,
 
-
 ];
